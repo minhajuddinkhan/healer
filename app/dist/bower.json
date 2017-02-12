@@ -1,0 +1,25 @@
+{
+  "name": "dist",
+  "authors": [
+    "Minhaj <minhajuddinkhan75@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-ui-router": "ui-router#^0.4.2",
+    "bootstrap": "^3.3.7",
+    "materialize": "^0.98.0",
+    "checklist-model": "^0.11.0",
+    "ngstorage": "^0.3.11"
+  }
+}

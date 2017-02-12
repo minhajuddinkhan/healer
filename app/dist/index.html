@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="bower_components/checklist-model/checklist-model.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        @font-face {
+            font-family: 'Amiri';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Amiri'), local('Amiri-Regular'), url('fonts/Amiri-Regular.ttf') format('woff2');
+            unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+FB50-FDFF, U+FE80-FEFC;
+        }
+        /* latin */
+        @font-face {
+            font-family: 'Amiri';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Amiri'), local('Amiri-Regular'), url('fonts/Amiri-Regular.ttf') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+        }
+        @font-face {
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lato Regular'), local('Lato-Regular'), url('fonts/Lato-Black.ttf') format('woff2');
+            unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* latin */
+        @font-face {
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lato Regular'), local('Lato-Regular'), url('fonts/Lato-Black.ttf') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+        }
+
+
+        div  {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .arabic {
+            font-family: 'Amiri', serif; text-align: right;
+            line-height: 70px;
+            font-weight: 900;
+        }
+        .logo {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 50px;
+            color: white;
+            background-color: darkslategrey;
+        }
+        .dua-title {
+            text-align: center;
+            width: 100%;
+            color: whitesmoke !important;
+            background: darkturquoise;
+            border-radius: 10px;
+        }
+        .register-form {
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .register-title {
+            letter-spacing: 3px;
+            text-align: center;
+            padding: 10px;
+            background-color: beige;
+            border-radius: 15px;
+            color: dimgray;
+        }
+        .letter-spacing-2 {
+            letter-spacing: 2px;
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .bg-gray{
+            background-color: lightblue;
+        }
+
+
+
+    </style>
+</head>
+<body ng-controller="appCtrl">
+
+
+
+
+<!-- Modal Trigger -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>LOGIN</h4>
+        <p class="letter-spacing-2">USERNAME</p>
+        <input type="text"  class="form-control" ng-model="user.username">
+
+        <p class="letter-spacing-2">PASSWORD</p>
+        <input type="password"  class="form-control" ng-model="user.password">
+
+
+    </div>
+    <div class="modal-footer">
+        <a  class=" modal-action waves-effect waves-green btn-flat" ng-click="login(user)">LOGIN</a>
+    </div>
+</div>
+<nav>
+    <div class="nav-wrapper" style="background-color: black;">
+        <form>
+            <div class="input-field">
+                <input style="font-family: Consolas" id="search" type="search" ng-model="search.translation" placeholder="TRANSLATIONS" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons" ng-click="search=''">close</i>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<br>
+<div class="container">
+
+
+
+
+    <div class="col s12 m2">
+        <h3 class="z-depth-2 arabic logo"
+        >المعالج القلوب</h3>
+    </div>
+
+    <div class="row" ng-init="activeTab='mid'">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s4 cursor-pointer" ng-click="activeTab='left'"><a ng-class="{active : activeTab == 'left'}" >REGISTRATION</a></li>
+                <li class="tab col s4 cursor-pointer" ng-click="activeTab='mid'"><a ng-class="{active : activeTab == 'mid'}"  >LIST</a></li>
+                <li class="tab col s4 cursor-pointer" ng-click="activeTab='right'"><a ng-class="{active : activeTab == 'right'}" >CATEGORIES</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div ng-show="activeTab=='left'" id="registration">
+
+        <p class="register-title">REGISTER DUA</p>
+        <form class="register-form">
+            <p class="letter-spacing-2" for="exampleInputEmail1">TITLE</p>
+            <input type="text" class="form-control" ng-model="object.title" id="exampleInputEmail1">
+            <p class="letter-spacing-2">DUA</p>
+            <input type="text" class="form-control arabic" style="font-size: 20px" id="sth" ng-model="object.arabicText">
+
+            <p class="letter-spacing-2">TRANSLITERATION</p>
+            <input type="text"  class="form-control" ng-model="object.transliteration">
+
+            <p class="letter-spacing-2">TRANSLATION</p>
+            <input type="text"  class="form-control" ng-model="object.translation">
+
+            <p class="letter-spacing-2">REFERENCE</p>
+            <input type="text"  class="form-control" ng-model="object.reference">
+
+            <p class="letter-spacing-2">CATEGORIES</p>
+
+            <div>
+                <ul>
+
+                    <li style="padding: 10px" ng-class-odd="'bg-gray'" ng-repeat="category in categories track by $index">
+                        <input type="checkbox" id="{{category._id}}"   checklist-model="object.categories" checklist-value="category._id">
+                        <label for="{{category._id}}" style="color: darkcyan">{{category.name}}</label>
+                    </li>
+                </ul>
+
+                <div style="text-align: center"  >
+                    <button ng-click="registerDua(object,selectedCat)" class="btn-large">Submit</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div ng-show="activeTab=='mid'" id="list">
+        <h5 class="register-title" style="padding: 10px; margin: 35px">DUAS REGISTERED</h5>
+        <div class="card" ng-repeat="dua in duas | filter: search">
+
+            <div class="card-content">
+                <p class="waves-effect waves-light btn-large dua-title" >{{dua.title}}</p>
+
+                <h4 class="arabic" style="text-align: center" >{{dua.arabicText}}</h4>
+                <p style="text-align: center">    {{dua.translation}}
+                <p style="text-align: center">{{dua.transliteration}}
+                <hr style="width: 70%">
+                <p style="text-align: center"> {{dua.reference}}</p>
+
+            </div>
+            <div style="padding: 10px">
+                <div  class="chip" ng-repeat="category in dua.categories">
+                    {{category.name}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div ng-show="activeTab=='right'" id="categories">
+
+
+        <p class="register-title"> CREATE CATEGORIES </p>
+        <input type="text" ng-model="category" placeholder="Enter Category">
+        <div style="text-align: center">
+            <button class="waves-purple btn-large" ng-click="createCategory({name: category})"> CREATE </button>
+        </div>
+
+        <form action="#">
+            <p>
+            </p>
+        </form>
+
+        <ul>
+
+            <li style="padding: 10px" ng-class-odd="'bg-gray'" ng-repeat="category in categories">
+                <label  style="color: darkcyan">{{category.name}}</label>
+
+
+            </li>
+        </ul>
+
+    </div>
+
+
+
+
+
+
+
+    <!-- <div ng-repeat="dua in duas">
+
+         <div class="row">
+             <div class="col col-md-2">
+             </div>
+             <div class="col col-md-10">
+                 <h2 style="font-family: 'Amiri', serif;">{{dua.arabicText}}</h2>
+                 <br>
+                 <h4>{{dua.translation}}</h4>
+
+             </div>
+         </div>
+
+
+     </div>
+ -->
+
+</div>
+
+
+
+</body>
+</html>
